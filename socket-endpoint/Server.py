@@ -20,8 +20,8 @@ while True:
     newsocket, fromaddr = bindsocket.accept()
     connstream = ssl.wrap_socket(newsocket,
                                  server_side=True,
-                                 certfile="restapi.crt",
-                                 keyfile="restapi.key")
+                                 certfile="conf/restapi.crt",
+                                 keyfile="conf/restapi.key")
     try:
         connection_handler(connstream)
     finally:

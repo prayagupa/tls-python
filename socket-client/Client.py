@@ -5,7 +5,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Require a certificate from the server. We used a self-signed certificate
 # so here ca_certs must be the server certificate itself.
 ssl_sock = ssl.wrap_socket(s,
-                           ca_certs="restapi.crt",
+                           ca_certs="conf/restapi.crt",
                            cert_reqs=ssl.CERT_REQUIRED)
 
 ssl_sock.connect(('localhost', 10023))
