@@ -1,29 +1,24 @@
-import socket, ssl, pprint
+import socket
+import ssl
+import pprint
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+HOST = "localhost"
+PORT = 10023
 
+# Build a modern TLS client context (TLS 1.2+ only, no deprecated wrap_socket)
+context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
 # Require a certificate from the server. We used a self-signed certificate
 # so here ca_certs must be the server certificate itself.
-ssl_sock = ssl.wrap_socket(s,
-                           ca_certs="conf/restapi.crt",
-                           cert_reqs=ssl.CERT_REQUIRED)
+context.load_verify_locations("conf/restapi.crt")
+context.minimum_version = ssl.TLSVersion.TLSv1_2
+# The self-signed cert CN won't match "localhost" — disable hostname check
+# while still verifying the certificate chain.
+context.check_hostname = False
 
-ssl_sock.connect(('localhost', 10023))
+with socket.create_connection((HOST, PORT)) as raw_sock:
+    with context.wrap_socket(raw_sock, server_hostname=HOST) as ssl_sock:
+        print(f"[INFO] peer host      {ssl_sock.getpeername()!r}")
+        print(f"[INFO] socket cipher  {ssl_sock.cipher()!r}")
+        print(f"[INFO] peer cert\n{pprint.pformat(ssl_sock.getpeercert())}")
 
-print "[INFO] peer host", repr(ssl_sock.getpeername())
-print "[INFO] socket cipher", ssl_sock.cipher()
-print "[INFO] peer cert", pprint.pformat(ssl_sock.getpeercert())
-
-ssl_sock.write("client says hello!")
-
-if False: # from the Python 2.7.3 docs
-    # Set a simple HTTP request -- use httplib in actual code.
-    ssl_sock.write("""GET / HTTP/1.0\r
-    Host: www.verisign.com\n\n""")
-
-    # Read a chunk of data.  Will not necessarily
-    # read all the data returned by the server.
-    data = ssl_sock.read()
-
-    # note that closing the SSLSocket will also close the underlying socket
-    ssl_sock.close()
+        ssl_sock.write(b"client says hello!")

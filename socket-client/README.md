@@ -1,24 +1,25 @@
 
 ```bash
-$ python Client.py 
-('127.0.0.1', 10023)
-('ECDHE-RSA-AES256-GCM-SHA384', 'TLSv1/SSLv3', 256)
-{'issuer': ((('countryName', u'US'),),
-            (('stateOrProvinceName', u'WA'),),
-            (('localityName', u'SEA'),),
-            (('organizationName', u'prayagupd'),),
-            (('organizationalUnitName', u'engineering'),),
-            (('commonName', u'prayagupd.com'),),
-            (('emailAddress', u'prayag.upd@gmail.com'),)),
- 'notAfter': 'Jun 20 04:53:06 2018 GMT',
- 'notBefore': u'Jun 20 04:53:06 2017 GMT',
- 'serialNumber': u'B8AC900AFAAF1309',
- 'subject': ((('countryName', u'US'),),
-             (('stateOrProvinceName', u'WA'),),
-             (('localityName', u'SEA'),),
-             (('organizationName', u'prayagupd'),),
-             (('organizationalUnitName', u'engineering'),),
-             (('commonName', u'prayagupd.com'),),
-             (('emailAddress', u'prayag.upd@gmail.com'),)),
- 'version': 1L}
+❯ python3 Client.py
+[INFO] peer host      ('127.0.0.1', 10023)
+[INFO] socket cipher  ('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256)
+[INFO] peer cert
+{'issuer': ((('countryName', 'US'),),
+            (('stateOrProvinceName', 'WA'),),
+            (('localityName', 'SEA'),),
+            (('organizationName', 'upadhyay'),),
+            (('organizationalUnitName', 'engineering'),),
+            (('commonName', 'localhost'),),
+            (('emailAddress', 'upadhyay@upadhyay.com'),)),
+ 'notAfter': 'May  6 02:53:23 2036 GMT',
+ 'notBefore': 'May  9 02:53:23 2026 GMT',
+ 'serialNumber': '221E1AB1AA960B6507C6DD4DBC5CC86D549E5676',
+ 'subject': ((('countryName', 'US'),),
+             (('stateOrProvinceName', 'WA'),),
+             (('localityName', 'SEA'),),
+             (('organizationName', 'upadhyay'),),
+             (('organizationalUnitName', 'engineering'),),
+             (('commonName', 'localhost'),),
+             (('emailAddress', 'upadhyay@upadhyay.com'),)),
+ 'version': 3}
 ```
