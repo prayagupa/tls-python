@@ -44,18 +44,10 @@ Both sides enforce **TLS 1.2** as the minimum version.
 
 ---
 
-## Generate a self-signed certificate
+## Setup
 
-```bash
-cd socket-endpoint/conf
-openssl genrsa -out restapi.key 2048
-openssl req -new -key restapi.key -out restapi.csr \
-  -subj "/C=US/ST=WA/L=SEA/O=upadhyay/OU=engineering/CN=localhost/emailAddress=upadhyay@upadhyay.com"
-openssl x509 -req -days 3650 -in restapi.csr -signkey restapi.key -out restapi.crt
-
-# The client needs the same certificate to verify the server
-cp restapi.crt ../../socket-client/conf/restapi.crt
-```
+Generate the TLS certificate before running either component.  
+See **[socket-endpoint/README.md](socket-endpoint/README.md)** for the full step-by-step guide (key generation, CSR fields, self-signing, and copying the cert to the client).
 
 ---
 
